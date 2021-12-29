@@ -20,7 +20,6 @@ const Feed = () => {
   const fetchTweets = async () => {
     const program = new Program(idl, programID, provider);
     const tweetAccounts = await program.account.tweet.all();
-    console.log(tweetAccounts);
     const formattedTweets = tweetAccounts.map(({ publicKey, account }) => {
       return new Tweet(publicKey, account);
     });

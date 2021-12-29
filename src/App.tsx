@@ -7,7 +7,6 @@ import '@solana/wallet-adapter-react-ui/styles.css';
 import Welcome from './components/Welcome';
 import ProviderContextProvider from './state/providerContext';
 import { clusterApiUrl } from '@solana/web3.js';
-import { useEffect } from 'react';
 
 const endpoint = clusterApiUrl("devnet")
 
