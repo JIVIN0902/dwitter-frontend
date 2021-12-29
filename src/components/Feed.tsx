@@ -2,7 +2,7 @@ import { SparklesIcon } from '@heroicons/react/outline'
 import "../App.css";
 import { Program } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { IDL as idl } from '../types/idl';
 import Post from './Post'
 import TweetForm from './TweetForm';
@@ -17,18 +17,18 @@ const Feed = () => {
   const [tweets, setTweets] = useState<Tweet[]>([]);
 
 
-  const fetchTweets = async () => {
+  const fetchTweets = useCallback(async () => {
     const program = new Program(idl, programID, provider);
     const tweetAccounts = await program.account.tweet.all();
     const formattedTweets = tweetAccounts.map(({ publicKey, account }) => {
       return new Tweet(publicKey, account);
     });
     setTweets(formattedTweets);
-  }
+  }, [provider, setTweets]);
 
   useEffect(() => {
     fetchTweets();
-  }, [])
+  }, [fetchTweets])
 
   return (
     <div className="col-span-4">
